@@ -15,7 +15,7 @@ import com.mobarenas.bungeecord.utils.MessageCommandHelper;
 public class MessageCommand extends Command implements TabExecutor {
 
     public MessageCommand() {
-	super("message", "bungeecord.command.message", "m", "msg");
+	super("message", "bungeecord.command.message", "m", "msg", "tell");
     }
 
     @Override

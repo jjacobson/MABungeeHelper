@@ -26,7 +26,8 @@ public class BungeeChat implements Listener {
             if (sender == spy)
                 continue;
 
-            if (sender.getServer() == spy.getServer())
+            // Dont send to players on the same server
+            if (sender.getServer().getInfo().getName().equals(spy.getServer().getInfo().getName()))
                 continue;
 
             String server = (sender.getServer().getInfo().getName().startsWith("slave")) ? "GAME" : "LOBBY";

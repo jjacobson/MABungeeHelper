@@ -29,7 +29,7 @@ public class TabComplete implements Listener {
             return;
         }
 
-        if (cmd.equalsIgnoreCase("spectate")) {
+        if (cmd.equalsIgnoreCase("spectate") || cmd.equalsIgnoreCase("spec")) {
             if (args.length < 2)
                 return;
 
@@ -56,7 +56,7 @@ public class TabComplete implements Listener {
             if (player.getServer() == tabber.getServer())
                 continue;
 
-            if (player.getName().startsWith(arg)) {
+            if (player.getName().toLowerCase().startsWith(arg.toLowerCase())) {
                 players.add(player.getName());
             }
 

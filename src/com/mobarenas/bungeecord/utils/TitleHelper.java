@@ -27,7 +27,7 @@ public class TitleHelper {
 
         screenTitle.fadeIn(0);
         screenTitle.stay(60);
-        screenTitle.fadeIn(10);
+        screenTitle.fadeOut(10);
 
         return screenTitle;
 
@@ -46,7 +46,7 @@ public class TitleHelper {
 
         screenTitle.fadeIn(0);
         screenTitle.stay(80);
-        screenTitle.fadeIn(20);
+        screenTitle.fadeOut(20);
 
         return screenTitle;
     }
@@ -63,7 +63,24 @@ public class TitleHelper {
 
         screenTitle.fadeIn(0);
         screenTitle.stay(80);
+        screenTitle.fadeOut(20);
+
+        return screenTitle;
+    }
+
+    public static Title createPurchaseTitle() {
+
+        Title screenTitle = ProxyServer.getInstance().createTitle();
+
+        BaseComponent[] title = new ComponentBuilder("Purchase Received").color(ChatColor.AQUA).create();
+        BaseComponent[] subtitle = new ComponentBuilder("Your purchase has been added to your account. ").color(ChatColor.GREEN).create();
+
+        screenTitle.title(title);
+        screenTitle.subTitle(subtitle);
+
         screenTitle.fadeIn(20);
+        screenTitle.stay(100);
+        screenTitle.fadeOut(20);
 
         return screenTitle;
     }

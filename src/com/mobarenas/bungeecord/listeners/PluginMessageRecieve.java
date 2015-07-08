@@ -53,10 +53,17 @@ public class PluginMessageRecieve implements Listener {
                     player.sendMessage(new ComponentBuilder("[WARNING] ").color(ChatColor.RED).append(violater).color(ChatColor.YELLOW)
                             .append(" has an unusually high violation level. /spectate " + violater + " to view them.").color(ChatColor.RED).create());
             }
-
             return;
         }
 
+        if (event.getTag().equals("purchase-alerts")) {
+
+            ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+            DataInputStream in = new DataInputStream(stream);
+
+            BungeeHelper.getInstance().getMessageHandler().handlePurchaseAlert(in.readUTF());
+            return;
+        }
     }
 
 }

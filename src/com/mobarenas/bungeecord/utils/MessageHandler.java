@@ -39,4 +39,17 @@ public class MessageHandler {
     }
 
 
+    public void handlePurchaseAlert(String player) {
+
+        ProxiedPlayer p = BungeeCord.getInstance().getPlayer(player);
+
+        if (p == null)
+            return;
+
+        Title title = TitleHelper.createPurchaseTitle();
+        title.send(p);
+        title.reset();
+
+
+    }
 }

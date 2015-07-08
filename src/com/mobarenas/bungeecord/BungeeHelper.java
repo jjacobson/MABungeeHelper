@@ -31,6 +31,7 @@ public class BungeeHelper extends Plugin {
         this.getProxy().registerChannel("death-alerts");
         this.getProxy().registerChannel("camp-kick-alerts");
         this.getProxy().registerChannel("violation-alerts");
+        this.getProxy().registerChannel("purchase-alerts");
         this.getProxy().getPluginManager().registerListener(this, new BungeeChat());
         this.getProxy().getPluginManager().registerListener(this, new BungeeJoin());
         this.getProxy().getPluginManager().registerListener(this, new BungeeLeave());

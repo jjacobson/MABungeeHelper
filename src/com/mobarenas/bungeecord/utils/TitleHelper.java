@@ -85,4 +85,20 @@ public class TitleHelper {
         return screenTitle;
     }
 
+    public static Title createStartTitle(String arena) {
+        Title startTitle = ProxyServer.getInstance().createTitle();
+
+        BaseComponent[] title = new ComponentBuilder("Welcome to").color(ChatColor.AQUA).create();
+        BaseComponent[] subtitle = new ComponentBuilder(arena).color(ChatColor.RED).create();
+
+        startTitle.title(title);
+        startTitle.subTitle(subtitle);
+
+        startTitle.fadeIn(20);
+        startTitle.stay(100);
+        startTitle.fadeOut(20);
+
+        return startTitle;
+
+    }
 }

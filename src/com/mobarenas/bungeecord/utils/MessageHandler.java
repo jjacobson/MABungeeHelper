@@ -1,8 +1,13 @@
 package com.mobarenas.bungeecord.utils;
 
+import com.mobarenas.bungeecord.BungeeHelper;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.Title;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class MessageHandler {
 
@@ -49,7 +54,20 @@ public class MessageHandler {
         Title title = TitleHelper.createPurchaseTitle();
         title.send(p);
         title.reset();
+    }
 
+    public List<UUID> handlePartyStatusRequest(List<UUID> request) {
+        List<UUID> response = new ArrayList<>();
+        for (UUID id : request) {
+            if (BungeeHelper.getInstance().getProxy().getPlayer(id) != null)
+                response.add(id);
+        }
+        return response;
+    }
 
+    public void handleStartAlert(String arenaName, ProxiedPlayer player) {
+        Title title = TitleHelper.createStartTitle(arenaName);
+        title.send(player);
+        title.reset();
     }
 }

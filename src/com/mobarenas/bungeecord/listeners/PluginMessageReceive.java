@@ -44,9 +44,43 @@ public class PluginMessageReceive implements Listener {
                 joiner.add(id.toString());
             }
 
-            out.writeUTF(joiner.toString());
+            out.writeUTF(sender.toString() + ":" + joiner.toString());
 
             BungeeHelper.getInstance().getProxy().getPlayer(sender).getServer().getInfo().sendData("party-status-request", responseStream.toByteArray());
+            return;
+        }
+
+        if (event.getTag().equals("party-join-update")) {
+            ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+            DataInputStream in = new DataInputStream(stream);
+            String request = in.readUTF();
+
+            ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(responseStream);
+            out.writeUTF(request);
+
+            for (ServerInfo info : BungeeCord.getInstance().getServers().values()) {
+                if (info.getPlayers().size() == 0)
+                    continue;
+                info.sendData("party-join-update", responseStream.toByteArray());
+            }
+            return;
+        }
+
+        if (event.getTag().equals("party-quit-update")) {
+            ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+            DataInputStream in = new DataInputStream(stream);
+            String request = in.readUTF();
+
+            ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(responseStream);
+            out.writeUTF(request);
+
+            for (ServerInfo info : BungeeCord.getInstance().getServers().values()) {
+                if (info.getPlayers().size() == 0)
+                    continue;
+                info.sendData("party-quit-update", responseStream.toByteArray());
+            }
             return;
         }
 
@@ -81,13 +115,17 @@ public class PluginMessageReceive implements Listener {
                     receiver = p;
                     break;
                 }
+                if (receiver.getUniqueId().equals(sender.getUniqueId())) {
+                    sender.sendMessage(new ComponentBuilder("Error: you cannot invite yourself to a party").color(ChatColor.RED).create());
+                    return;
+                }
                 sender.sendMessage(new ComponentBuilder("Successfully sent " + receiver.getName() + " an invite.").color(ChatColor.GREEN).create());
                 receiver.sendMessage(new ComponentBuilder(sender.getName() + " has invited you to a party! Use /party join to accept.").color(ChatColor.GREEN).create());
 
                 ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
                 DataOutputStream out = new DataOutputStream(responseStream);
 
-                out.writeUTF(partyID);
+                out.writeUTF(partyID + ":" + receiver.getUniqueId().toString());
                 receiver.getServer().getInfo().sendData("party-invite-player", responseStream.toByteArray());
             }
             return;

@@ -38,6 +38,8 @@ public class BungeeHelper extends Plugin {
         this.getProxy().registerChannel("party-invite-player");
         this.getProxy().registerChannel("arena-start-alerts");
         this.getProxy().registerChannel("party-chat-toggle");
+        this.getProxy().registerChannel("party-quit-update");
+        this.getProxy().registerChannel("party-join-update");
         this.getProxy().getPluginManager().registerListener(this, new BungeeChat());
         this.getProxy().getPluginManager().registerListener(this, new BungeeJoin());
         this.getProxy().getPluginManager().registerListener(this, new BungeeLeave());

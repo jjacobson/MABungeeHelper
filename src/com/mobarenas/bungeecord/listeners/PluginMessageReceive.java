@@ -22,7 +22,7 @@ public class PluginMessageReceive implements Listener {
         if (!(event.getSender() instanceof Server))
             return;
 
-        if (event.getData().equals("party-status-request")) {
+        if (event.getTag().equals("party-status-request")) {
             ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
             DataInputStream in = new DataInputStream(stream);
 
@@ -46,7 +46,20 @@ public class PluginMessageReceive implements Listener {
 
             out.writeUTF(joiner.toString());
 
-            BungeeHelper.getInstance().getProxy().getPlayer(sender).getServer().sendData("party-status-request", responseStream.toByteArray());
+            BungeeHelper.getInstance().getProxy().getPlayer(sender).getServer().getInfo().sendData("party-status-request", responseStream.toByteArray());
+            return;
+        }
+
+        if (event.getTag().equals("party-chat-toggle")) {
+            ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+            DataInputStream in = new DataInputStream(stream);
+
+            String[] request = in.readUTF().split(":");
+
+            ProxiedPlayer player = BungeeCord.getInstance().getPlayer(UUID.fromString(request[0]));
+            boolean value = Boolean.valueOf(request[1]);
+
+            BungeeHelper.getInstance().setChatValue(player, value);
             return;
         }
 
@@ -75,7 +88,7 @@ public class PluginMessageReceive implements Listener {
                 DataOutputStream out = new DataOutputStream(responseStream);
 
                 out.writeUTF(partyID);
-                receiver.sendData("party-invite-player", responseStream.toByteArray());
+                receiver.getServer().getInfo().sendData("party-invite-player", responseStream.toByteArray());
             }
             return;
         }
@@ -99,7 +112,8 @@ public class PluginMessageReceive implements Listener {
             for (ServerInfo info : BungeeCord.getInstance().getServers().values()) {
                 // send once to each server
                 for (ProxiedPlayer player : info.getPlayers()) {
-                    player.sendData("party-chat-channel", responseStream.toByteArray());
+                    player.getServer().getInfo().sendData("party-chat-channel", responseStream.toByteArray());
+                    System.out.println("sent data to " + player.getName());
                     break;
                 }
             }

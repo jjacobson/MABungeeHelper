@@ -17,6 +17,7 @@ public class BungeeHelper extends Plugin {
 
     private static BungeeHelper instance;
     private Map<ProxiedPlayer, ProxiedPlayer> replyList = new HashMap<ProxiedPlayer, ProxiedPlayer>();
+    private Map<ProxiedPlayer, Boolean> partyChat = new HashMap<>();
     private List<ProxiedPlayer> spies = new ArrayList<ProxiedPlayer>();
     private List<ProxiedPlayer> kicked = new ArrayList<ProxiedPlayer>();
     private MessageHandler handler;
@@ -33,8 +34,10 @@ public class BungeeHelper extends Plugin {
         this.getProxy().registerChannel("violation-alerts");
         this.getProxy().registerChannel("purchase-alerts");
         this.getProxy().registerChannel("party-status-request");
+        this.getProxy().registerChannel("party-chat-channel");
         this.getProxy().registerChannel("party-invite-player");
         this.getProxy().registerChannel("arena-start-alerts");
+        this.getProxy().registerChannel("party-chat-toggle");
         this.getProxy().getPluginManager().registerListener(this, new BungeeChat());
         this.getProxy().getPluginManager().registerListener(this, new BungeeJoin());
         this.getProxy().getPluginManager().registerListener(this, new BungeeLeave());
@@ -96,6 +99,21 @@ public class BungeeHelper extends Plugin {
 
     public void addKickedPlayer(ProxiedPlayer player) {
         kicked.add(player);
+    }
+
+    public boolean getChatValue(ProxiedPlayer player) {
+        if (!partyChat.containsKey(player))
+            return false;
+
+        return partyChat.get(player);
+    }
+
+    public void setChatValue(ProxiedPlayer player, boolean value) {
+        partyChat.put(player, value);
+    }
+
+    public void removeChatValue(ProxiedPlayer player) {
+        partyChat.remove(player);
     }
 
 

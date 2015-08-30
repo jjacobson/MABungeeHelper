@@ -17,6 +17,7 @@ public class BungeeLeave implements Listener {
         if (BungeeHelper.getInstance().hasBeenKicked(event.getPlayer())) {
             BungeeHelper.getInstance().removeKickedPlayer(event.getPlayer());
         }
+        BungeeHelper.getInstance().removeChatValue(event.getPlayer());
     }
 
 }

@@ -1,7 +1,6 @@
 package com.mobarenas.bungeecord.commands;
 
 import com.mobarenas.bungeecord.BungeeHelper;
-import com.mobarenas.bungeecord.privatemessaging.MessageManager;
 import com.mobarenas.bungeecord.privatemessaging.MessageCommandUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;

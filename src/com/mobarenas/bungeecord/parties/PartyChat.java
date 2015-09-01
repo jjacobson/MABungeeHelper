@@ -2,9 +2,6 @@ package com.mobarenas.bungeecord.parties;
 
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 

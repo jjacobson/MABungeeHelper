@@ -112,10 +112,54 @@ public class ReceiveMessage {
         DataInputStream in = new DataInputStream(stream);
         String[] request = in.readUTF().split(":");
 
-        ProxiedPlayer player = BungeeCord.getInstance().getPlayer(msg[0]);
-        int wave = Integer.parseInt(msg[1]);
+        ProxiedPlayer player = BungeeCord.getInstance().getPlayer(UUID.fromString(request[0]));
+        int wave = Integer.parseInt(request[1]);
 
 
-        BungeeHelper.getTitleManager().sendDeathTitle();
+        BungeeHelper.getTitleManager().sendDeathTitle(wave, player);
+    }
+
+    public void receiveCamperKickAlert(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+        ProxiedPlayer player = BungeeHelper.getInstance().getProxy().getPlayer(UUID.fromString(in.readUTF()));
+
+        if (player != null)
+            BungeeHelper.getKickManager().addCamper(player);
+    }
+
+    public void receiveViolationAlert(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+        String violator = in.readUTF();
+
+        for (ProxiedPlayer player : BungeeHelper.getInstance().getProxy().getPlayers()) {
+            if (player.hasPermission("bungeecord.violations.recieve")) {
+                player.sendMessage(new ComponentBuilder("[WARNING] ").color(ChatColor.RED).append(violator).color(ChatColor.YELLOW)
+                        .append(" has an unusually high violation level. /spectate " + violator + " to view them.").color(ChatColor.RED).create());
+            }
+        }
+    }
+
+    public void receivePurchaseAlert(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+        BungeeHelper.getTitleManager().handlePurchaseAlert(in.readUTF());
+    }
+
+    public void receiveArenaStartAlert(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+
+        String[] response = in.readUTF().split(":");
+        String arenaName = response[0];
+        String[] playerIDs = response[1].split(";");
+
+        for (String id : playerIDs) {
+            UUID uuid = UUID.fromString(id);
+            ProxiedPlayer player = BungeeCord.getInstance().getPlayer(uuid);
+            if (player != null)
+                BungeeHelper.getTitleManager().handleStartAlert(arenaName, player);
+        }
     }
 }

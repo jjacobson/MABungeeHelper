@@ -7,10 +7,6 @@ import net.md_5.bungee.api.event.ServerSwitchEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-
 public class ServerSwitchListener implements Listener {
 
     @EventHandler
@@ -23,7 +19,8 @@ public class ServerSwitchListener implements Listener {
         }
 
         if (serverInfo.getName().equalsIgnoreCase("lobby") && BungeeHelper.getKickManager().isCamper(player)) {
-            BungeeHelper.getInstance().getMessageHandler().handleKickAlert(event.getPlayer());
+            BungeeHelper.getTitleManager().handleKickAlert(event.getPlayer());
+            BungeeHelper.getKickManager().removeCamper(event.getPlayer());
         }
     }
 

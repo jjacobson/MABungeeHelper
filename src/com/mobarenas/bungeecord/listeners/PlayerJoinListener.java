@@ -9,7 +9,7 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void lobbyJoin(PostLoginEvent event) {
-        BungeeHelper.getInstance().getMessageHandler().handleLoginAlert(event.getPlayer());
+        BungeeHelper.getTitleManager().handleLoginAlert(event.getPlayer());
     }
 
 }

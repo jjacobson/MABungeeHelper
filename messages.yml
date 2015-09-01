@@ -1,3 +1,4 @@
 party:
 message:
+  reply-args: '&cError: usage /r (message)'
 spy:

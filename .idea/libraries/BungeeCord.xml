@@ -1,11 +1,11 @@
 <component name="libraryTable">
-  <library name="BungeeCord">
+  <library name="bungeecord">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Google Drive/ServerWorkspace/jar/BungeeCord.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jarfiles/bungeecord.jar!/" />
     </CLASSES>
     <JAVADOC />
     <NATIVE>
-      <root url="jar://$USER_HOME$/Google Drive/ServerWorkspace/jar/BungeeCord.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jarfiles/bungeecord.jar!/" />
     </NATIVE>
     <SOURCES />
   </library>

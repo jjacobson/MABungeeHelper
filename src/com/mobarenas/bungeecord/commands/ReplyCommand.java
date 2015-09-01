@@ -1,6 +1,7 @@
 package com.mobarenas.bungeecord.commands;
 
 import com.mobarenas.bungeecord.BungeeHelper;
+import com.mobarenas.bungeecord.messages.Messages;
 import com.mobarenas.bungeecord.privatemessaging.MessageCommandUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
@@ -23,7 +24,7 @@ public class ReplyCommand extends Command {
         ProxiedPlayer player = (ProxiedPlayer) commandSender;
 
         if (args.length < 1) {
-            player.sendMessage(new ComponentBuilder("Error: correct usage /r <message>").color(ChatColor.RED).create());
+            player.sendMessage(Messages.getMessage("message.reply-args"));
             return;
         }
 

@@ -141,6 +141,7 @@ public class BungeeHelper extends Plugin {
         this.getProxy().registerChannel("party-chat-toggle");
         this.getProxy().registerChannel("party-quit-update");
         this.getProxy().registerChannel("party-join-update");
+        this.getProxy().registerChannel("party-login-update");
     }
 
     /**

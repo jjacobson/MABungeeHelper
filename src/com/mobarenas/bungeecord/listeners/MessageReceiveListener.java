@@ -29,6 +29,9 @@ public class MessageReceiveListener implements Listener {
             case "party-chat-toggle":
                 BungeeHelper.getMessageReceiver().receivePartyChatToggle(event);
                 break;
+            case "party-login-update":
+                BungeeHelper.getMessageReceiver().receiveLoginUpdate(event);
+                break;
             case "party-invite-player":
                 BungeeHelper.getMessageReceiver().receivePartyInvite(event);
                 break;

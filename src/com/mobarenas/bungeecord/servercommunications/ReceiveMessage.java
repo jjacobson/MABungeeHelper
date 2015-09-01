@@ -66,8 +66,8 @@ public class ReceiveMessage {
 
         String[] split = request.split(":");
         UUID party = UUID.fromString(split[0]);
-        UUID quitter = UUID.fromString(split[1]);
-        ProxiedPlayer player = BungeeCord.getInstance().getPlayer(quitter);
+        UUID joiner = UUID.fromString(split[1]);
+        ProxiedPlayer player = BungeeCord.getInstance().getPlayer(joiner);
         if (player != null) {
             BungeeHelper.getPartyChat().setPartyChatID(player, party);
         }
@@ -251,5 +251,20 @@ public class ReceiveMessage {
             if (player != null)
                 BungeeHelper.getTitleManager().handleStartAlert(arenaName, player);
         }
+    }
+
+    /**
+     * Receive the login update
+     *
+     * @param event
+     */
+    public void receiveLoginUpdate(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+        String[] response = in.readUTF().split(":");
+
+        UUID playerID = UUID.fromString(response[0]);
+        UUID partyID = UUID.fromString(response[1]);
+        BungeeHelper.getPartyChat().setPartyChatID(BungeeCord.getInstance().getPlayer(playerID), partyID);
     }
 }

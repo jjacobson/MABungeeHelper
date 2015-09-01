@@ -1,9 +1,8 @@
 package com.mobarenas.bungeecord.commands;
 
 import com.mobarenas.bungeecord.BungeeHelper;
-import net.md_5.bungee.api.ChatColor;
+import com.mobarenas.bungeecord.messages.Messages;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
@@ -25,16 +24,16 @@ public class SpyCommand extends Command {
         ProxiedPlayer playerSender = (ProxiedPlayer) commandSender;
 
         if (args.length != 0) {
-            playerSender.sendMessage(new ComponentBuilder("Error: correct usage /spy").color(ChatColor.RED).create());
+            playerSender.sendMessage(Messages.getMessage("spy.args"));
             return;
         }
 
-        if (plugin.getSpyManager().isSpy(playerSender)) {
-            plugin.getSpyManager().removeSpy(playerSender);
-            playerSender.sendMessage(new ComponentBuilder("You are no longer spying on all players").color(ChatColor.GOLD).create());
+        if (BungeeHelper.getSpyManager().isSpy(playerSender)) {
+            BungeeHelper.getSpyManager().removeSpy(playerSender);
+            playerSender.sendMessage(Messages.getMessage("spy.toggle-off"));
         } else {
-            plugin.getSpyManager().addSpy(playerSender);
-            playerSender.sendMessage(new ComponentBuilder("You are now spying on all players").color(ChatColor.GOLD).create());
+            BungeeHelper.getSpyManager().addSpy(playerSender);
+            playerSender.sendMessage(Messages.getMessage("spy.toggle-on"));
         }
     }
 

@@ -1,4 +1,39 @@
 party:
+  invite-no-name: '&cError: no players found with that name'
+  invite-self: '&cError: you cannot invite yourself to a party'
+  invite-player: '&7You have successfully sent &a%player% &7an invite'
+  invite-received: '&a%player% &7has invited you to a party. Use &a/party join &7to accept'
 message:
+  not-online: '&cError: %player% is not online'
   reply-args: '&cError: usage /r (message)'
+  message-args: '&cError: usage /m (player) (message)'
+  reply-null: '&cError: no one has messaged you'
+  reply-offline: '&cError: that player is not online'
+  private-send: '&fYou &7-> &f%receiver%&7: %message%'
+  private-receive: &f%sender% &7-> &fYou&7: %message%'
 spy:
+  args: '&cError: correct usage /spy'
+  toggle-on: '&cYou are no longer spying on all players'
+  toggle-off: '&aYou are now spying on all players'
+  spy-message: '&6[%server%]&7%player%: %message%'
+  party-message: '&6[PARTY]&7%player%: %message%'
+  private-message: '&f%sender% &7-> %receiver%&7: message'
+title:
+alerts:
+  violation-alert: '&c[WARN]&e%player% has an unusually high violation level. &c/spectate %player% &eto view them'
+  death:
+    title: '&cYou are dead'
+    subtitle: '&6You survived for &b%wave% &6waves'
+    subtitle-1: '&6You survived for &b1 &6wave'
+  login:
+    title: '&bMobArenas'
+    subtitle: '&cEnter the portal to join the game'
+  kicked:
+    title: '&cWarning'
+    subtitle: '&cKicked from the game for inactivity'
+  purchase:
+    title: '&bPurchase Received'
+    subtitle: '&aA purchase has been added to your account'
+  start:
+    title: '&bWelcome to'
+    subtitle: '&c%arena%'

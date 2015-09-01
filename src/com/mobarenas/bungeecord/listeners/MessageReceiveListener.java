@@ -21,7 +21,7 @@ public class MessageReceiveListener implements Listener {
                 BungeeHelper.getMessageReceiver().receiveStatusRequest(event);
                 break;
             case "party-join-update":
-                BungeeHelper.getMessageReceiver().receivePartyUpdate(event);
+                BungeeHelper.getMessageReceiver().receivePartyJoinUpdate(event);
                 break;
             case "party-quit-update":
                 BungeeHelper.getMessageReceiver().receivePartyQuitUpdate(event);

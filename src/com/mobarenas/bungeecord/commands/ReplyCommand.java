@@ -3,9 +3,7 @@ package com.mobarenas.bungeecord.commands;
 import com.mobarenas.bungeecord.BungeeHelper;
 import com.mobarenas.bungeecord.messages.Messages;
 import com.mobarenas.bungeecord.privatemessaging.MessageCommandUtils;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
@@ -29,7 +27,7 @@ public class ReplyCommand extends Command {
         }
 
         if (!BungeeHelper.getMessageManager().isMessenger(player)) {
-            player.sendMessage(new ComponentBuilder("Error: no one has messaged you.").color(ChatColor.RED).create());
+            player.sendMessage(Messages.getMessage("message.reply-null"));
             return;
         }
 
@@ -39,12 +37,10 @@ public class ReplyCommand extends Command {
         }
 
         ProxiedPlayer receiver = BungeeHelper.getMessageManager().getMessengers().get(player);
-
         if (receiver == null) {
-            player.sendMessage(new ComponentBuilder("Error: that player is not online.").color(ChatColor.RED).create());
+            player.sendMessage(Messages.getMessage("message.reply-offline"));
             return;
         }
-
         MessageCommandUtils.sendPlayerMessage(player, receiver, sb.toString());
         MessageCommandUtils.setPlayerSenders(player, receiver);
     }

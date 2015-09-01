@@ -13,10 +13,16 @@ public class PlayerQuitListener implements Listener {
         removePlayerFootprint(event.getPlayer());
     }
 
+    /**
+     * Remove a players footprint, remove all references to the player
+     *
+     * @param player to clear
+     */
     private void removePlayerFootprint(ProxiedPlayer player) {
         BungeeHelper.getMessageManager().removeMessenger(player);
         BungeeHelper.getSpyManager().removeSpy(player);
         BungeeHelper.getPartyChat().removePartyChatPlayer(player);
+        BungeeHelper.getPartyChat().removePartyUUID(player);
         BungeeHelper.getKickManager().removeCamper(player);
     }
 

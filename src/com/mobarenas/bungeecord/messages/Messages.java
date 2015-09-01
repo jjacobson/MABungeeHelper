@@ -17,8 +17,8 @@ import java.nio.file.Files;
  */
 public class Messages {
 
-    private BungeeHelper plugin;
     private static Configuration messages;
+    private BungeeHelper plugin;
 
     public Messages() throws IOException {
         this.plugin = BungeeHelper.getInstance();
@@ -29,7 +29,7 @@ public class Messages {
             Files.copy(plugin.getResourceAsStream("messages.yml"), file.toPath());
         }
         messages = ConfigurationProvider.getProvider(YamlConfiguration.class)
-                .load(new File(plugin.getDataFolder(), "config.yml"));
+                .load(new File(plugin.getDataFolder(), "messages.yml"));
 
         ConfigurationProvider.getProvider(YamlConfiguration.class)
                 .save(messages, new File(plugin.getDataFolder(), "messages.yml"));
@@ -41,7 +41,7 @@ public class Messages {
     }
 
     public static BaseComponent[] getMessage(String path, Pair... replace) {
-        BaseComponent[] text = TextComponent.fromLegacyText(replace(colorize(messages.getString(path, "&cCouldn't find message (path: " + path + ")"))));
+        BaseComponent[] text = TextComponent.fromLegacyText(replace(colorize(messages.getString(path, "&cCouldn't find message (path: " + path + ")")), replace));
         return text;
     }
 

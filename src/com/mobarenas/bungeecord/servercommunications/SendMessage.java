@@ -23,6 +23,12 @@ public class SendMessage {
         plugin = BungeeHelper.getInstance();
     }
 
+    /**
+     * Update servers to respect a players party chat status
+     *
+     * @param player     who toggled their party chat
+     * @param serverInfo server to send it to
+     */
     public void sendPartyChatStatus(ProxiedPlayer player, ServerInfo serverInfo) {
         ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(responseStream);
@@ -34,6 +40,13 @@ public class SendMessage {
         serverInfo.sendData("party-chat-toggle", responseStream.toByteArray());
     }
 
+    /**
+     * Send the status response for currently online bungeecord players
+     *
+     * @param sender who requested the status
+     * @param response list of players who are online bungeecord and in the party
+     * @throws IOException
+     */
     public void sendPlayerStatusResponse(ProxiedPlayer sender, List<UUID> response) throws IOException {
         ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(responseStream);
@@ -46,7 +59,13 @@ public class SendMessage {
         sender.getServer().getInfo().sendData("party-status-request", responseStream.toByteArray());
     }
 
-    public void sendPartyUpdate(String request) throws IOException {
+    /**
+     * Send a party join update to all servers so that they can alert players and modify their party list
+     *
+     * @param request to send to servers
+     * @throws IOException
+     */
+    public void sendPartyJoinUpdate(String request) throws IOException {
         ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(responseStream);
         out.writeUTF(request);
@@ -58,6 +77,12 @@ public class SendMessage {
         }
     }
 
+    /**
+     * Send a party quit update so all servers can alert party players and modify their party list
+     *
+     * @param request to send to servers
+     * @throws IOException
+     */
     public void sendPartyQuitUpdate(String request) throws IOException {
         ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(responseStream);
@@ -70,6 +95,13 @@ public class SendMessage {
         }
     }
 
+    /**
+     * Send a party invite to the server that contains the receiving player
+     *
+     * @param partyID of party to invite a player to
+     * @param receiver of the party invite
+     * @throws IOException
+     */
     public void sendPartyInvite(String partyID, ProxiedPlayer receiver) throws IOException {
         ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(responseStream);
@@ -77,6 +109,12 @@ public class SendMessage {
         receiver.getServer().getInfo().sendData("party-invite-player", responseStream.toByteArray());
     }
 
+    /**
+     * Send a party chat message to servers so they can message party members
+     *
+     * @param request to send to servers
+     * @throws IOException
+     */
     public void sendPartyChatMessage(String request) throws IOException {
         ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(responseStream);

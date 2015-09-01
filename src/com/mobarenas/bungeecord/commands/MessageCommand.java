@@ -1,10 +1,10 @@
 package com.mobarenas.bungeecord.commands;
 
 import com.mobarenas.bungeecord.BungeeHelper;
+import com.mobarenas.bungeecord.messages.Messages;
+import com.mobarenas.bungeecord.messages.Pair;
 import com.mobarenas.bungeecord.privatemessaging.MessageCommandUtils;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
@@ -26,7 +26,7 @@ public class MessageCommand extends Command implements TabExecutor {
         ProxiedPlayer playerSender = (ProxiedPlayer) commandSender;
 
         if (args.length < 2) {
-            playerSender.sendMessage(new ComponentBuilder("Error: correct usage /m <player> <message>").color(ChatColor.RED).create());
+            playerSender.sendMessage(Messages.getMessage("message.message-args"));
             return;
         }
 
@@ -42,7 +42,7 @@ public class MessageCommand extends Command implements TabExecutor {
                 return;
             }
         }
-        playerSender.sendMessage(new ComponentBuilder("Error: " + args[0] + " is not online").color(ChatColor.RED).create());
+        playerSender.sendMessage(Messages.getMessage("message.not-online", new Pair("%player%", args[0])));
     }
 
     @Override

@@ -27,6 +27,79 @@ public class BungeeHelper extends Plugin {
     private static SendMessage sendMessage;
     private static TitleManager titleManager;
 
+    /**
+     * Get the plugin instance
+     *
+     * @return the instance of this bungeecord plugin
+     */
+    public static BungeeHelper getInstance() {
+        return instance;
+    }
+
+    /**
+     * Get the spy manager for the server
+     *
+     * @return the servers spy manager
+     */
+    public static SpyManager getSpyManager() {
+        return spyManager;
+    }
+
+    /**
+     * Get the camper kick manager for the server
+     *
+     * @return the camper kick manager
+     */
+    public static KickManager getKickManager() {
+        return kickManager;
+    }
+
+    /**
+     * Get the party chat messenger
+     *
+     * @return servers party chat manager
+     */
+    public static PartyChat getPartyChat() {
+        return partyChat;
+    }
+
+    /**
+     * Get the private message manager for the server
+     *
+     * @return servers private message manager
+     */
+    public static MessageManager getMessageManager() {
+        return messageManager;
+    }
+
+    /**
+     * Get the plugin message receiver for the server
+     *
+     * @return servers plugin message receiver
+     */
+    public static ReceiveMessage getMessageReceiver() {
+        return receiveMessage;
+    }
+
+    /**
+     * Get the servers plugin message sender
+     *
+     * @return plugin message sender for the server
+     */
+    public static SendMessage getMessageSender() {
+        return sendMessage;
+    }
+
+    /**
+     * Get the title manager for the server
+     *
+     * @return servers title manager
+     */
+    public static TitleManager getTitleManager() {
+        return titleManager;
+    }
+
+    @Override
     public void onEnable() {
         instance = this;
         registerHelpers();
@@ -89,42 +162,5 @@ public class BungeeHelper extends Plugin {
         getProxy().getPluginManager().registerCommand(this, new MessageCommand());
         getProxy().getPluginManager().registerCommand(this, new ReplyCommand());
         getProxy().getPluginManager().registerCommand(this, new SpyCommand());
-    }
-
-    /**
-     * Get the plugin instance
-     *
-     * @return the instance of this bungeecord plugin
-     */
-    public static BungeeHelper getInstance() {
-        return instance;
-    }
-
-    public static SpyManager getSpyManager() {
-        return spyManager;
-    }
-
-    public static KickManager getKickManager() {
-        return kickManager;
-    }
-
-    public static PartyChat getPartyChat() {
-        return partyChat;
-    }
-
-    public static MessageManager getMessageManager() {
-        return messageManager;
-    }
-
-    public static ReceiveMessage getMessageReceiver() {
-        return receiveMessage;
-    }
-
-    public static SendMessage getMessageSender() {
-        return sendMessage;
-    }
-
-    public static TitleManager getTitleManager() {
-        return titleManager;
     }
 }

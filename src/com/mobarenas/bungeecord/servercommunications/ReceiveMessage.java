@@ -64,6 +64,14 @@ public class ReceiveMessage {
         DataInputStream in = new DataInputStream(stream);
         String request = in.readUTF();
 
+        String[] split = request.split(":");
+        UUID party = UUID.fromString(split[0]);
+        UUID quitter = UUID.fromString(split[1]);
+        ProxiedPlayer player = BungeeCord.getInstance().getPlayer(quitter);
+        if (player != null) {
+            BungeeHelper.getPartyChat().setPartyChatID(player, party);
+        }
+
         BungeeHelper.getMessageSender().sendPartyJoinUpdate(request);
     }
 
@@ -78,6 +86,13 @@ public class ReceiveMessage {
         ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
         DataInputStream in = new DataInputStream(stream);
         String request = in.readUTF();
+
+        String[] split = request.split(":");
+        UUID quitter = UUID.fromString(split[1]);
+        ProxiedPlayer player = BungeeCord.getInstance().getPlayer(quitter);
+        if (player != null) {
+            BungeeHelper.getPartyChat().removePartyUUID(player);
+        }
 
         BungeeHelper.getMessageSender().sendPartyQuitUpdate(request);
     }
@@ -95,12 +110,7 @@ public class ReceiveMessage {
         String[] request = in.readUTF().split(":");
         ProxiedPlayer player = BungeeCord.getInstance().getPlayer(UUID.fromString(request[0]));
         boolean value = Boolean.valueOf(request[1]);
-        if (value) {
-            UUID partyID = UUID.fromString(request[2]);
-            BungeeHelper.getPartyChat().setPartyChatID(player, partyID);
-        } else {
-            BungeeHelper.getPartyChat().removePartyUUID(player);
-        }
+
         BungeeHelper.getPartyChat().setPartyChatValue(player, value);
     }
 

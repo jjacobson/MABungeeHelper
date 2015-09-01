@@ -9,8 +9,11 @@ import net.md_5.bungee.api.plugin.Command;
 
 public class SpyCommand extends Command {
 
+    private BungeeHelper plugin;
+
     public SpyCommand() {
         super("spy", "bungeecord.command.spy", "chatspy");
+        this.plugin = BungeeHelper.getInstance();
     }
 
     @Override
@@ -26,15 +29,13 @@ public class SpyCommand extends Command {
             return;
         }
 
-        if (BungeeHelper.getInstance().isSpy(playerSender)) {
-            BungeeHelper.getInstance().removeSpy(playerSender);
+        if (plugin.getSpyManager().isSpy(playerSender)) {
+            plugin.getSpyManager().removeSpy(playerSender);
             playerSender.sendMessage(new ComponentBuilder("You are no longer spying on all players").color(ChatColor.GOLD).create());
         } else {
-            BungeeHelper.getInstance().addSpy(playerSender);
+            plugin.getSpyManager().addSpy(playerSender);
             playerSender.sendMessage(new ComponentBuilder("You are now spying on all players").color(ChatColor.GOLD).create());
-
         }
-
     }
 
 }

@@ -1,4 +1,4 @@
-package com.mobarenas.bungeecord.utils;
+package com.mobarenas.bungeecord.titles;
 
 import com.mobarenas.bungeecord.BungeeHelper;
 import net.md_5.bungee.BungeeCord;
@@ -9,16 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class MessageHandler {
+public class TitleManager {
 
-    public void handleDeathAlert(String alert) {
-
-        String[] msg = alert.split(":");
-
-        ProxiedPlayer player = BungeeCord.getInstance().getPlayer(msg[0]);
-        int wave = Integer.parseInt(msg[1]);
-
-        Title title = TitleHelper.createDeathTitle(wave);
+    public void sendDeathTitle(int wave, ProxiedPlayer player) {
+        Title title = TitleCreator.createDeathTitle(wave);
 
         title.send(player);
         title.reset();
@@ -27,7 +21,7 @@ public class MessageHandler {
 
     public void handleLoginAlert(ProxiedPlayer player) {
 
-        Title title = TitleHelper.createLoginTitle(player);
+        Title title = TitleCreator.createLoginTitle(player);
 
         title.send(player);
         title.reset();
@@ -36,7 +30,7 @@ public class MessageHandler {
 
     public void handleKickAlert(ProxiedPlayer player) {
 
-        Title title = TitleHelper.createKickedTitle();
+        Title title = TitleCreator.createKickedTitle();
 
         title.send(player);
         title.reset();
@@ -51,7 +45,7 @@ public class MessageHandler {
         if (p == null)
             return;
 
-        Title title = TitleHelper.createPurchaseTitle();
+        Title title = TitleCreator.createPurchaseTitle();
         title.send(p);
         title.reset();
     }
@@ -66,7 +60,7 @@ public class MessageHandler {
     }
 
     public void handleStartAlert(String arenaName, ProxiedPlayer player) {
-        Title title = TitleHelper.createStartTitle(arenaName);
+        Title title = TitleCreator.createStartTitle(arenaName);
         title.send(player);
         title.reset();
     }

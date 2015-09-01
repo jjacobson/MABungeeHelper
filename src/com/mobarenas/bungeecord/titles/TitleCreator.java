@@ -1,4 +1,4 @@
-package com.mobarenas.bungeecord.utils;
+package com.mobarenas.bungeecord.titles;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
@@ -8,7 +8,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
-public class TitleHelper {
+public class TitleCreator {
 
     public static Title createDeathTitle(int wave) {
 

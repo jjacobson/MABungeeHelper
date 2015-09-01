@@ -9,7 +9,13 @@ import net.md_5.bungee.event.EventHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabComplete implements Listener {
+public class TabCompleteListener implements Listener {
+
+    private List<String> autoComplete = new ArrayList<String>() {{
+        add("join");
+        add("spec");
+        add("spectate");
+    }};
 
     @EventHandler
     public void tabComplete(TabCompleteEvent event) {
@@ -20,46 +26,29 @@ public class TabComplete implements Listener {
         String[] args = event.getCursor().split(" ");
         String cmd = args[0].replaceFirst("/", "");
 
-        if (cmd.equalsIgnoreCase("join")) {
+        if (autoComplete.contains(cmd.toLowerCase())) {
             if (args.length < 2)
                 return;
 
             event.getSuggestions().addAll(getSuggestions(args[1], (ProxiedPlayer) event.getSender()));
-
             return;
         }
-
-        if (cmd.equalsIgnoreCase("spectate") || cmd.equalsIgnoreCase("spec")) {
-            if (args.length < 2)
-                return;
-
-            event.getSuggestions().addAll(getSuggestions(args[1], (ProxiedPlayer) event.getSender()));
-
-            return;
-        }
-
     }
 
     /**
      * Add tablist suggestions to everyone who isnt on your server
      *
      * @param arg    command argument (playername)
-     * @param tabber sender
+     * @param sender sender
      * @return list of players to add to the tab suggestions
      */
-    private List<String> getSuggestions(String arg, ProxiedPlayer tabber) {
+    private List<String> getSuggestions(String arg, ProxiedPlayer sender) {
+        List<String> players = new ArrayList<>();
+        for (ProxiedPlayer player : BungeeHelper.getInstance().getProxy().matchPlayer(arg)) {
+            if (player.getServer() == sender.getServer())
+                continue; // bukkit already adds them to the list
 
-        List<String> players = new ArrayList<String>();
-
-        for (ProxiedPlayer player : BungeeHelper.getInstance().getProxy().getPlayers()) {
-
-            if (player.getServer() == tabber.getServer())
-                continue;
-
-            if (player.getName().toLowerCase().startsWith(arg.toLowerCase())) {
-                players.add(player.getName());
-            }
-
+            players.add(player.getName());
         }
         return players;
     }

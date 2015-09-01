@@ -1,7 +1,8 @@
 package com.mobarenas.bungeecord.commands;
 
 import com.mobarenas.bungeecord.BungeeHelper;
-import com.mobarenas.bungeecord.utils.MessageCommandHelper;
+import com.mobarenas.bungeecord.privatemessaging.MessageManager;
+import com.mobarenas.bungeecord.privatemessaging.MessageCommandUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -37,19 +38,17 @@ public class MessageCommand extends Command implements TabExecutor {
 
         for (ProxiedPlayer player : BungeeHelper.getInstance().getProxy().getPlayers()) {
             if (player.getName().equalsIgnoreCase(args[0])) {
-                MessageCommandHelper.sendPlayerMessage(playerSender, player, sb.toString());
-                MessageCommandHelper.setPlayerSenders(playerSender, player);
+                MessageCommandUtils.sendPlayerMessage(playerSender, player, sb.toString());
+                MessageCommandUtils.setPlayerSenders(playerSender, player);
                 return;
             }
         }
-
         playerSender.sendMessage(new ComponentBuilder("Error: " + args[0] + " is not online").color(ChatColor.RED).create());
-
     }
 
     @Override
     public Iterable<String> onTabComplete(CommandSender sender, String[] args) {
-        ArrayList<String> players = new ArrayList<String>();
+        ArrayList<String> players = new ArrayList<>();
 
         if (!(sender instanceof ProxiedPlayer)) {
             return players;
@@ -59,9 +58,8 @@ public class MessageCommand extends Command implements TabExecutor {
             return players;
         }
 
-        for (ProxiedPlayer player : BungeeHelper.getInstance().getProxy().getPlayers()) {
-            if (player.getName().toLowerCase().startsWith(args[0].toLowerCase()))
-                players.add(player.getName());
+        for (ProxiedPlayer player : BungeeHelper.getInstance().getProxy().matchPlayer(args[0])) {
+            players.add(player.getName());
         }
         return players;
     }

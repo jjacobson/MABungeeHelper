@@ -8,7 +8,7 @@ import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
-public class BungeeChat implements Listener {
+public class PlayerChatListener implements Listener {
 
     @EventHandler
     public void playerChat(ChatEvent event) {
@@ -21,8 +21,7 @@ public class BungeeChat implements Listener {
 
         ProxiedPlayer sender = (ProxiedPlayer) event.getSender();
 
-        for (ProxiedPlayer spy : BungeeHelper.getInstance().getSpies()) {
-
+        for (ProxiedPlayer spy : BungeeHelper.getSpyManager().getSpies()) {
             if (sender == spy)
                 continue;
 

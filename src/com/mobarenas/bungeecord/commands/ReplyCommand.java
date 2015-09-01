@@ -1,7 +1,7 @@
 package com.mobarenas.bungeecord.commands;
 
 import com.mobarenas.bungeecord.BungeeHelper;
-import com.mobarenas.bungeecord.utils.MessageCommandHelper;
+import com.mobarenas.bungeecord.privatemessaging.MessageCommandUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -27,7 +27,7 @@ public class ReplyCommand extends Command {
             return;
         }
 
-        if (!BungeeHelper.getInstance().containsPlayer(player)) {
+        if (!BungeeHelper.getMessageManager().isMessenger(player)) {
             player.sendMessage(new ComponentBuilder("Error: no one has messaged you.").color(ChatColor.RED).create());
             return;
         }
@@ -37,15 +37,15 @@ public class ReplyCommand extends Command {
             sb.append(args[i] + " ");
         }
 
-        if (BungeeHelper.getInstance().getProxiedPlayerList().get(player) == null) {
+        ProxiedPlayer receiver = BungeeHelper.getMessageManager().getMessengers().get(player);
+
+        if (receiver == null) {
             player.sendMessage(new ComponentBuilder("Error: that player is not online.").color(ChatColor.RED).create());
             return;
         }
 
-        ProxiedPlayer reciever = BungeeHelper.getInstance().getProxiedPlayerList().get(player);
-
-        MessageCommandHelper.sendPlayerMessage(player, reciever, sb.toString());
-        MessageCommandHelper.setPlayerSenders(player, reciever);
+        MessageCommandUtils.sendPlayerMessage(player, receiver, sb.toString());
+        MessageCommandUtils.setPlayerSenders(player, receiver);
     }
 
 }

@@ -1,34 +1,62 @@
 package com.mobarenas.bungeecord;
 
+import com.mobarenas.bungeecord.campmanager.KickManager;
 import com.mobarenas.bungeecord.commands.MessageCommand;
 import com.mobarenas.bungeecord.commands.ReplyCommand;
 import com.mobarenas.bungeecord.commands.SpyCommand;
 import com.mobarenas.bungeecord.listeners.*;
-import com.mobarenas.bungeecord.utils.MessageHandler;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
+import com.mobarenas.bungeecord.messages.Messages;
+import com.mobarenas.bungeecord.parties.PartyChat;
+import com.mobarenas.bungeecord.privatemessaging.MessageManager;
+import com.mobarenas.bungeecord.servercommunications.ReceiveMessage;
+import com.mobarenas.bungeecord.servercommunications.SendMessage;
+import com.mobarenas.bungeecord.spy.SpyManager;
+import com.mobarenas.bungeecord.titles.TitleManager;
 import net.md_5.bungee.api.plugin.Plugin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
 
 public class BungeeHelper extends Plugin {
 
     private static BungeeHelper instance;
-    private Map<ProxiedPlayer, ProxiedPlayer> replyList = new HashMap<ProxiedPlayer, ProxiedPlayer>();
-    private Map<ProxiedPlayer, Boolean> partyChat = new HashMap<>();
-    private List<ProxiedPlayer> spies = new ArrayList<ProxiedPlayer>();
-    private List<ProxiedPlayer> kicked = new ArrayList<ProxiedPlayer>();
-    private MessageHandler handler;
-
-    public static BungeeHelper getInstance() {
-        return instance;
-    }
+    private static SpyManager spyManager;
+    private static MessageManager messageManager;
+    private static KickManager kickManager;
+    private static PartyChat partyChat;
+    private static ReceiveMessage receiveMessage;
+    private static SendMessage sendMessage;
+    private static TitleManager titleManager;
 
     public void onEnable() {
         instance = this;
-        handler = new MessageHandler();
+        registerHelpers();
+        registerChannels();
+        registerListeners();
+        registerCommands();
+    }
+
+    /**
+     * Register the bungeecord helper classes
+     */
+    private void registerHelpers() {
+        try {
+            new Messages();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        titleManager = new TitleManager();
+        messageManager = new MessageManager();
+        spyManager = new SpyManager();
+        kickManager = new KickManager();
+        partyChat = new PartyChat();
+        receiveMessage = new ReceiveMessage();
+        sendMessage = new SendMessage();
+    }
+
+    /**
+     * Register the channels that bungeecord can send/receive data on
+     */
+    private void registerChannels() {
         this.getProxy().registerChannel("death-alerts");
         this.getProxy().registerChannel("camp-kick-alerts");
         this.getProxy().registerChannel("violation-alerts");
@@ -40,83 +68,63 @@ public class BungeeHelper extends Plugin {
         this.getProxy().registerChannel("party-chat-toggle");
         this.getProxy().registerChannel("party-quit-update");
         this.getProxy().registerChannel("party-join-update");
-        this.getProxy().getPluginManager().registerListener(this, new BungeeChat());
-        this.getProxy().getPluginManager().registerListener(this, new BungeeJoin());
-        this.getProxy().getPluginManager().registerListener(this, new BungeeLeave());
-        this.getProxy().getPluginManager().registerListener(this, new PluginMessageReceive());
-        this.getProxy().getPluginManager().registerListener(this, new ServerSwitch());
-        this.getProxy().getPluginManager().registerListener(this, new TabComplete());
+    }
+
+    /**
+     * Register the bungeecord listeners
+     */
+    private void registerListeners() {
+        this.getProxy().getPluginManager().registerListener(this, new PlayerChatListener());
+        this.getProxy().getPluginManager().registerListener(this, new PlayerJoinListener());
+        this.getProxy().getPluginManager().registerListener(this, new PlayerQuitListener());
+        this.getProxy().getPluginManager().registerListener(this, new MessageReceiveListener());
+        this.getProxy().getPluginManager().registerListener(this, new ServerSwitchListener());
+        this.getProxy().getPluginManager().registerListener(this, new TabCompleteListener());
+    }
+
+    /**
+     * Register the bungeecord commands
+     */
+    private void registerCommands() {
         getProxy().getPluginManager().registerCommand(this, new MessageCommand());
         getProxy().getPluginManager().registerCommand(this, new ReplyCommand());
         getProxy().getPluginManager().registerCommand(this, new SpyCommand());
     }
 
-    public MessageHandler getMessageHandler() {
-        return handler;
+    /**
+     * Get the plugin instance
+     *
+     * @return the instance of this bungeecord plugin
+     */
+    public static BungeeHelper getInstance() {
+        return instance;
     }
 
-    public Map<ProxiedPlayer, ProxiedPlayer> getProxiedPlayerList() {
-        return replyList;
+    public static SpyManager getSpyManager() {
+        return spyManager;
     }
 
-    public void removePlayer(ProxiedPlayer player) {
-        replyList.remove(player);
-
+    public static KickManager getKickManager() {
+        return kickManager;
     }
 
-    public void addPlayer(ProxiedPlayer sender, ProxiedPlayer reciever) {
-        replyList.put(sender, reciever);
+    public static PartyChat getPartyChat() {
+        return partyChat;
     }
 
-    public boolean containsPlayer(ProxiedPlayer player) {
-        return replyList.containsKey(player);
+    public static MessageManager getMessageManager() {
+        return messageManager;
     }
 
-    public void addSpy(ProxiedPlayer player) {
-        if (!spies.contains(player))
-            spies.add(player);
+    public static ReceiveMessage getMessageReceiver() {
+        return receiveMessage;
     }
 
-    public void removeSpy(ProxiedPlayer player) {
-        if (spies.contains(player))
-            spies.remove(player);
+    public static SendMessage getMessageSender() {
+        return sendMessage;
     }
 
-    public List<ProxiedPlayer> getSpies() {
-        return spies;
+    public static TitleManager getTitleManager() {
+        return titleManager;
     }
-
-    public boolean isSpy(ProxiedPlayer player) {
-        return spies.contains(player);
-    }
-
-    public boolean hasBeenKicked(ProxiedPlayer player) {
-        return kicked.contains(player);
-
-    }
-
-    public void removeKickedPlayer(ProxiedPlayer player) {
-        kicked.remove(player);
-    }
-
-    public void addKickedPlayer(ProxiedPlayer player) {
-        kicked.add(player);
-    }
-
-    public boolean getChatValue(ProxiedPlayer player) {
-        if (!partyChat.containsKey(player))
-            return false;
-
-        return partyChat.get(player);
-    }
-
-    public void setChatValue(ProxiedPlayer player, boolean value) {
-        partyChat.put(player, value);
-    }
-
-    public void removeChatValue(ProxiedPlayer player) {
-        partyChat.remove(player);
-    }
-
-
 }

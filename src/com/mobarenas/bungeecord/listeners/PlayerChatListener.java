@@ -54,15 +54,6 @@ public class PlayerChatListener implements Listener {
      */
     private void chatSpyParty(ProxiedPlayer sender, ProxiedPlayer spy, String message) {
         PartyChat partyChat = BungeeHelper.getPartyChat();
-
-        if (partyChat.getPartyChatID(sender) == null) {
-            System.out.println("sender null");
-        }
-        if (partyChat.getPartyChatID(spy) == null) {
-            System.out.println("spy null");
-        }
-
-
         if (partyChat.getPartyChatID(spy) != null) {
             // dont send if they are in the same party
             if (partyChat.getPartyChatID(sender).equals(partyChat.getPartyChatID(spy)))

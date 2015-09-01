@@ -10,14 +10,14 @@ message:
   reply-null: '&cError: no one has messaged you'
   reply-offline: '&cError: that player is not online'
   private-send: '&fYou &7-> &f%receiver%&7: %message%'
-  private-receive: &f%sender% &7-> &fYou&7: %message%'
+  private-receive: '&f%sender% &7-> &fYou&7: %message%'
 spy:
   args: '&cError: correct usage /spy'
-  toggle-on: '&cYou are no longer spying on all players'
-  toggle-off: '&aYou are now spying on all players'
+  toggle-off: '&cYou are no longer spying on all players'
+  toggle-on: '&aYou are now spying on all players'
   spy-message: '&6[%server%]&7%player%: %message%'
   party-message: '&6[PARTY]&7%player%: %message%'
-  private-message: '&f%sender% &7-> %receiver%&7: message'
+  private-message: '&f%sender% &7-> &f%receiver%&7: %message%'
 title:
 alerts:
   violation-alert: '&c[WARN]&e%player% has an unusually high violation level. &c/spectate %player% &eto view them'

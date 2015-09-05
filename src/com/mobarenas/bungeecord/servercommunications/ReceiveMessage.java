@@ -142,6 +142,7 @@ public class ReceiveMessage {
             sender.sendMessage(Messages.getMessage("party.invite-self"));
             return;
         }
+
         sender.sendMessage(Messages.getMessage("party.invite-player", new Pair("%player%", receiver.getName())));
         receiver.sendMessage(Messages.getMessage("party.invite-received", new Pair("%player%", sender.getName())));
         BungeeHelper.getMessageSender().sendPartyInvite(partyID, receiver);

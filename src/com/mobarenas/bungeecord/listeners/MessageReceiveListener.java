@@ -55,5 +55,4 @@ public class MessageReceiveListener implements Listener {
                 break;
         }
     }
-
 }

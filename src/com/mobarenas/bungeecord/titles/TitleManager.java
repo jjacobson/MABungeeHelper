@@ -24,7 +24,7 @@ public class TitleManager {
      * @param player to send the login alert to
      */
     public void handleLoginAlert(ProxiedPlayer player) {
-        Title title = TitleCreator.createLoginTitle();
+        Title title = TitleCreator.createLoginTitle(player);
 
         title.send(player);
         title.reset();

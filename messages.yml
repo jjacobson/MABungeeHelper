@@ -20,13 +20,13 @@ spy:
   private-message: '&f%sender% &7-> &f%receiver%&7: %message%'
 title:
 alerts:
-  violation-alert: '&c[WARN]&e%player% has an unusually high violation level. &c/spectate %player% &eto view them'
+  violation-alerts: '&c[WARN]&e%player% has an unusually high violation level. &c/spectate %player% &eto view them'
   death:
     title: '&cYou are dead'
     subtitle: '&6You survived for &b%wave% &6waves'
     subtitle-1: '&6You survived for &b1 &6wave'
   login:
-    title: '&bMobArenas'
+    title: '&bWelcome &c%name%'
     subtitle: '&cEnter the portal to join the game'
   kicked:
     title: '&cWarning'

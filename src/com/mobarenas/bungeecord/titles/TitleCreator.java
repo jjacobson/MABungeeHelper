@@ -5,6 +5,7 @@ import com.mobarenas.bungeecord.messages.Pair;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.Title;
 import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 public class TitleCreator {
 
@@ -39,10 +40,10 @@ public class TitleCreator {
      *
      * @return a new login title
      */
-    public static Title createLoginTitle() {
+    public static Title createLoginTitle(ProxiedPlayer player) {
         Title screenTitle = ProxyServer.getInstance().createTitle();
 
-        BaseComponent[] title = Messages.getMessage("alerts.login.title");
+        BaseComponent[] title = Messages.getMessage("alerts.login.title", new Pair("%name%", player.getName()));
         BaseComponent[] subtitle = Messages.getMessage("alerts.login.subtitle");
 
         screenTitle.title(title);

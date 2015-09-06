@@ -30,7 +30,7 @@ public class TitleCreator {
         screenTitle.subTitle(subtitle);
 
         screenTitle.fadeIn(0);
-        screenTitle.stay(60);
+        screenTitle.stay(50);
         screenTitle.fadeOut(10);
         return screenTitle;
     }

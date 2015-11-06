@@ -61,7 +61,13 @@ public class TitleManager {
      * @param player to send the start title to
      */
     public void handleStartAlert(String arenaName, ProxiedPlayer player) {
-        Title title = TitleCreator.createStartTitle(arenaName);
+        Title title = TitleCreator.createStartTitle(arenaName.replace('-', ' '));
+        title.send(player);
+        title.reset();
+    }
+
+    public void handleTimerAlert(ProxiedPlayer player, int time) {
+        Title title = TitleCreator.createTimerTitle(time);
         title.send(player);
         title.reset();
     }

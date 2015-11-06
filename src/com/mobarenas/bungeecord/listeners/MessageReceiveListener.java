@@ -53,6 +53,9 @@ public class MessageReceiveListener implements Listener {
             case "arena-start-alerts":
                 BungeeHelper.getMessageReceiver().receiveArenaStartAlert(event);
                 break;
+            case "timer-alerts":
+                BungeeHelper.getMessageReceiver().receiveTimerAlert(event);
+                break;
         }
     }
 }

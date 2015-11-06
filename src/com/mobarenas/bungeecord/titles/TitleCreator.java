@@ -115,4 +115,19 @@ public class TitleCreator {
         startTitle.fadeOut(20);
         return startTitle;
     }
+
+    public static Title createTimerTitle(int time) {
+        Title timerTitle = ProxyServer.getInstance().createTitle();
+
+        BaseComponent[] title = Messages.getMessage("alerts.timer.title", new Pair("%time%", time + ""));
+        BaseComponent[] subtitle = Messages.getMessage("alerts.timer.subtitle");
+
+        timerTitle.title(title);
+        timerTitle.subTitle(subtitle);
+
+        timerTitle.fadeIn(0);
+        timerTitle.stay(20);
+        timerTitle.fadeOut(10);
+        return timerTitle;
+    }
 }

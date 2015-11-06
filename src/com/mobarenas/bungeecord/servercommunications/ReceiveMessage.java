@@ -268,4 +268,15 @@ public class ReceiveMessage {
         UUID partyID = UUID.fromString(response[1]);
         BungeeHelper.getPartyChat().setPartyChatID(BungeeCord.getInstance().getPlayer(playerID), partyID);
     }
+
+    public void receiveTimerAlert(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+        String[] response = in.readUTF().split(":");
+
+        ProxiedPlayer player = BungeeCord.getInstance().getPlayer(UUID.fromString(response[0]));
+        int time = Integer.parseInt(response[1]);
+        if (player != null)
+            BungeeHelper.getTitleManager().handleTimerAlert(player, time);
+    }
 }

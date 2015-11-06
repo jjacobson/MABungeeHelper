@@ -37,3 +37,6 @@ alerts:
   start:
     title: '&bWelcome to'
     subtitle: '&c%arena%'
+  timer:
+    title: '&b%time%'
+    subtitle: '&eGame Starting'

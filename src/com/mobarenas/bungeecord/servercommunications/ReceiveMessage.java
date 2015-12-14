@@ -279,4 +279,20 @@ public class ReceiveMessage {
         if (player != null)
             BungeeHelper.getTitleManager().handleTimerAlert(player, time);
     }
+
+    public void receiveAbilityAlert(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+
+        String[] response = in.readUTF().split(":");
+        String ability = response[0];
+        String[] playerIDs = response[1].split(";");
+
+        for (String id : playerIDs) {
+            UUID uuid = UUID.fromString(id);
+            ProxiedPlayer player = BungeeCord.getInstance().getPlayer(uuid);
+            if (player != null)
+                BungeeHelper.getTitleManager().handleAbilityAlert(ability, player);
+        }
+    }
 }

@@ -40,3 +40,6 @@ alerts:
   timer:
     title: '&b%time%'
     subtitle: '&eGame Starting'
+  ability:
+    title: '&b%ability%'
+    subtitle: '&ePowerup Activated'

@@ -71,4 +71,11 @@ public class TitleManager {
         title.send(player);
         title.reset();
     }
+
+
+    public void handleAbilityAlert(String ability, ProxiedPlayer player) {
+        Title title = TitleCreator.createAbilityTitle(ability);
+        title.send(player);
+        title.reset();
+    }
 }

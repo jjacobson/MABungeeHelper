@@ -130,4 +130,19 @@ public class TitleCreator {
         timerTitle.fadeOut(10);
         return timerTitle;
     }
+
+    public static Title createAbilityTitle(String ability) {
+        Title timerTitle = ProxyServer.getInstance().createTitle();
+
+        BaseComponent[] title = Messages.getMessage("alerts.ability.title", new Pair("%ability%", ability));
+        BaseComponent[] subtitle = Messages.getMessage("alerts.ability.subtitle");
+
+        timerTitle.title(title);
+        timerTitle.subTitle(subtitle);
+
+        timerTitle.fadeIn(0);
+        timerTitle.stay(20);
+        timerTitle.fadeOut(10);
+        return timerTitle;
+    }
 }

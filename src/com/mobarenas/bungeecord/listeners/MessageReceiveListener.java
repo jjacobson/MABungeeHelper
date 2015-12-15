@@ -56,7 +56,7 @@ public class MessageReceiveListener implements Listener {
             case "timer-alerts":
                 BungeeHelper.getMessageReceiver().receiveTimerAlert(event);
                 break;
-            case "ability-activate-alert":
+            case "ability-activate":
                 BungeeHelper.getMessageReceiver().receiveAbilityAlert(event);
                 break;
         }

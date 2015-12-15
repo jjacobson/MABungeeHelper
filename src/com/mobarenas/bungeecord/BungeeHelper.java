@@ -143,7 +143,7 @@ public class BungeeHelper extends Plugin {
         this.getProxy().registerChannel("party-join-update");
         this.getProxy().registerChannel("party-login-update");
         this.getProxy().registerChannel("timer-alerts");
-        this.getProxy().registerChannel("ability-activate-alert");
+        this.getProxy().registerChannel("ability-activate");
     }
 
     /**

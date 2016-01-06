@@ -114,4 +114,26 @@ public class TitleCreator {
         startTitle.fadeOut(20);
         return startTitle;
     }
+
+    /**
+     * Create a new crate title with the given title and subtitle
+     *
+     * @param top
+     * @param bottom
+     * @return
+     */
+    public static Title createCrateTitle(String top, String bottom) {
+        Title startTitle = ProxyServer.getInstance().createTitle();
+
+        BaseComponent[] title = Messages.getMessage("alerts.crate.title", new Pair("%title%", top));
+        BaseComponent[] subtitle = Messages.getMessage("alerts.crate.subtitle", new Pair("%subtitle%", bottom));
+
+        startTitle.title(title);
+        startTitle.subTitle(subtitle);
+
+        startTitle.fadeIn(20);
+        startTitle.stay(60);
+        startTitle.fadeOut(20);
+        return startTitle;
+    }
 }

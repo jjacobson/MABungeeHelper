@@ -152,6 +152,19 @@ public class ReceiveMessage {
     }
 
     /**
+     * Called when a crate is given to a player by an arena
+     *
+     * @param event
+     * @throws IOException
+     */
+    public void receiveCrate(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+        UUID uuid = UUID.fromString(in.readUTF());
+        BungeeHelper.getMessageSender().giveChest(uuid);
+    }
+
+    /**
      * Receive a death alert and send the dying player a title
      *
      * @param event
@@ -241,5 +254,24 @@ public class ReceiveMessage {
             if (player != null)
                 BungeeHelper.getTitleManager().handleStartAlert(arenaName, player);
         }
+    }
+
+    /**
+     * Receive a crate alert
+     *
+     * @param event
+     * @throws IOException
+     */
+    public void receiveCrateAlert(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+        String[] request = in.readUTF().split(":");
+        String top = request[0];
+        String bottom = request[1];
+        ProxiedPlayer player = BungeeCord.getInstance().getPlayer(UUID.fromString(request[2]));
+        if (player == null) {
+            return;
+        }
+        BungeeHelper.getTitleManager().handleCrateAlert(top, bottom, player);
     }
 }

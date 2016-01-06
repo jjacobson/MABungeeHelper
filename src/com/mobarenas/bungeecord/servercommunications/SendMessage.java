@@ -43,7 +43,7 @@ public class SendMessage {
     /**
      * Send the status response for currently online bungeecord players
      *
-     * @param sender who requested the status
+     * @param sender   who requested the status
      * @param response list of players who are online bungeecord and in the party
      * @throws IOException
      */
@@ -98,7 +98,7 @@ public class SendMessage {
     /**
      * Send a party invite to the server that contains the receiving player
      *
-     * @param partyID of party to invite a player to
+     * @param partyID  of party to invite a player to
      * @param receiver of the party invite
      * @throws IOException
      */
@@ -124,6 +124,28 @@ public class SendMessage {
             // send once to each server
             for (ProxiedPlayer player : info.getPlayers()) {
                 player.getServer().getInfo().sendData("party-chat-channel", responseStream.toByteArray());
+                break;
+            }
+        }
+    }
+
+    /**
+     * Send a chest to the lobby
+     *
+     * @param uuid of receiver
+     * @throws IOException
+     */
+    public void giveChest(UUID uuid) throws IOException {
+        ProxiedPlayer player = BungeeCord.getInstance().getPlayer(uuid);
+        if (player != null) {
+            BungeeHelper.getChestManager().addReceiver(player);
+        }
+        ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(responseStream);
+        out.writeUTF(uuid.toString());
+        for (ServerInfo info : BungeeCord.getInstance().getServers().values()) {
+            if (info.getName().equalsIgnoreCase("lobby")) {
+                info.sendData("crate-received", responseStream.toByteArray());
                 break;
             }
         }

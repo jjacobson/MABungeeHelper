@@ -10,7 +10,7 @@ message:
   reply-null: '&cError: no one has messaged you'
   reply-offline: '&cError: that player is not online'
   private-send: '&fYou &7-> &f%receiver%&7: %message%'
-  private-receive: &f%sender% &7-> &fYou&7: %message%'
+  private-receive: '&f%sender% &7-> &fYou&7: %message%'
 spy:
   args: '&cError: correct usage /spy'
   toggle-on: '&cYou are no longer spying on all players'
@@ -18,7 +18,7 @@ spy:
   spy-message: '&6[%server%]&7%player%: %message%'
   party-message: '&6[PARTY]&7%player%: %message%'
   private-message: '&f%sender% &7-> %receiver%&7: message'
-title:
+chest: '&aYou received a crate. Open the chest at spawn to use it!'
 alerts:
   violation-alert: '&c[WARN]&e%player% has an unusually high violation level. &c/spectate %player% &eto view them'
   death:
@@ -37,3 +37,6 @@ alerts:
   start:
     title: '&bWelcome to'
     subtitle: '&c%arena%'
+  crate:
+    title: '&b%title%'
+    subtitle: '&a%subtitle%'

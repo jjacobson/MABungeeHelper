@@ -1,4 +1,4 @@
-package com.mobarenas.bungeecord.campmanager;
+package com.mobarenas.bungeecord.waiting;
 
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 

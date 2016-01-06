@@ -35,6 +35,9 @@ public class MessageReceiveListener implements Listener {
             case "party-chat-channel":
                 BungeeHelper.getMessageReceiver().receivePartyChatMessage(event);
                 break;
+            case "crate-given":
+                BungeeHelper.getMessageReceiver().receiveCrate(event);
+                break;
             case "death-alerts":
                 BungeeHelper.getMessageReceiver().receiveDeathAlert(event);
                 break;
@@ -50,6 +53,8 @@ public class MessageReceiveListener implements Listener {
             case "arena-start-alerts":
                 BungeeHelper.getMessageReceiver().receiveArenaStartAlert(event);
                 break;
+            case "crate-alerts":
+                BungeeHelper.getMessageReceiver().receiveCrateAlert(event);
         }
     }
 

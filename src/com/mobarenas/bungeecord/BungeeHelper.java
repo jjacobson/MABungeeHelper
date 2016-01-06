@@ -1,6 +1,5 @@
 package com.mobarenas.bungeecord;
 
-import com.mobarenas.bungeecord.campmanager.KickManager;
 import com.mobarenas.bungeecord.commands.MessageCommand;
 import com.mobarenas.bungeecord.commands.ReplyCommand;
 import com.mobarenas.bungeecord.commands.SpyCommand;
@@ -12,6 +11,8 @@ import com.mobarenas.bungeecord.servercommunications.ReceiveMessage;
 import com.mobarenas.bungeecord.servercommunications.SendMessage;
 import com.mobarenas.bungeecord.spy.SpyManager;
 import com.mobarenas.bungeecord.titles.TitleManager;
+import com.mobarenas.bungeecord.waiting.ChestManager;
+import com.mobarenas.bungeecord.waiting.KickManager;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class BungeeHelper extends Plugin {
     private static ReceiveMessage receiveMessage;
     private static SendMessage sendMessage;
     private static TitleManager titleManager;
+    private static ChestManager chestManager;
 
     /**
      * Get the plugin instance
@@ -52,6 +54,15 @@ public class BungeeHelper extends Plugin {
      */
     public static KickManager getKickManager() {
         return kickManager;
+    }
+
+    /**
+     * Get the chest manager
+     *
+     * @return the chest manager
+     */
+    public static ChestManager getChestManager() {
+        return chestManager;
     }
 
     /**
@@ -121,6 +132,7 @@ public class BungeeHelper extends Plugin {
         messageManager = new MessageManager();
         spyManager = new SpyManager();
         kickManager = new KickManager();
+        chestManager = new ChestManager();
         partyChat = new PartyChat();
         receiveMessage = new ReceiveMessage();
         sendMessage = new SendMessage();
@@ -138,9 +150,12 @@ public class BungeeHelper extends Plugin {
         this.getProxy().registerChannel("party-chat-channel");
         this.getProxy().registerChannel("party-invite-player");
         this.getProxy().registerChannel("arena-start-alerts");
+        this.getProxy().registerChannel("crate-alerts");
         this.getProxy().registerChannel("party-chat-toggle");
         this.getProxy().registerChannel("party-quit-update");
         this.getProxy().registerChannel("party-join-update");
+        this.getProxy().registerChannel("crate-given");
+        this.getProxy().registerChannel("crate-received");
     }
 
     /**

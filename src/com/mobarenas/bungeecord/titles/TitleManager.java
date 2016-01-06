@@ -65,4 +65,17 @@ public class TitleManager {
         title.send(player);
         title.reset();
     }
+
+    /**
+     * Send a created title to the given player
+     *
+     * @param top of title
+     * @param bottom of title
+     * @param player to send to
+     */
+    public void handleCrateAlert(String top, String bottom, ProxiedPlayer player) {
+        Title title = TitleCreator.createCrateTitle(top, bottom);
+        title.send(player);
+        title.reset();
+    }
 }

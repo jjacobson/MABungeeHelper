@@ -24,6 +24,7 @@ public class PlayerQuitListener implements Listener {
         BungeeHelper.getPartyChat().removePartyChatPlayer(player);
         BungeeHelper.getPartyChat().removePartyUUID(player);
         BungeeHelper.getKickManager().removeCamper(player);
+        BungeeHelper.getChestManager().removeReceiver(player);
     }
 
 }

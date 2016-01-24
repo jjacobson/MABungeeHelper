@@ -65,6 +65,12 @@ public class MessageReceiveListener implements Listener {
             case "game-won":
                 BungeeHelper.getMessageReceiver().receiveGameWonAlert(event);
                 break;
+            case "crate-given":
+                BungeeHelper.getMessageReceiver().receiveCrate(event);
+                break;
+            case "crate-alerts":
+                BungeeHelper.getMessageReceiver().receiveCrateUnlock(event);
+                break;
 
         }
     }

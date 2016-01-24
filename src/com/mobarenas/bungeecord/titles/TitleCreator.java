@@ -5,6 +5,7 @@ import com.mobarenas.bungeecord.messages.Pair;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.Title;
 import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 public class TitleCreator {
@@ -166,6 +167,21 @@ public class TitleCreator {
 
         BaseComponent[] title = Messages.getMessage("alerts.gamewon.title");
         BaseComponent[] subtitle = Messages.getMessage("alerts.gamewon.subtitle");
+
+        timerTitle.title(title);
+        timerTitle.subTitle(subtitle);
+
+        timerTitle.fadeIn(10);
+        timerTitle.stay(40);
+        timerTitle.fadeOut(10);
+        return timerTitle;
+    }
+
+    public static Title createCrateTitle(String t, String s) {
+        Title timerTitle = ProxyServer.getInstance().createTitle();
+
+        BaseComponent[] title = TextComponent.fromLegacyText(t);
+        BaseComponent[] subtitle = TextComponent.fromLegacyText(s);
 
         timerTitle.title(title);
         timerTitle.subTitle(subtitle);

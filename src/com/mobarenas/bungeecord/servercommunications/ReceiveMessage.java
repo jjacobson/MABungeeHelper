@@ -321,4 +321,24 @@ public class ReceiveMessage {
             }
         }
     }
+
+    public void receiveCrate(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+        UUID uuid = UUID.fromString(in.readUTF());
+        BungeeHelper.getMessageSender().sendCrate(uuid);
+    }
+
+    public void receiveCrateUnlock(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+        String[] split = in.readUTF().split(":");
+        String title = split[0];
+        String subtitle = split[1];
+        ProxiedPlayer player = BungeeCord.getInstance().getPlayer(UUID.fromString(split[2]));
+        if (player == null) {
+            return;
+        }
+        BungeeHelper.getTitleManager().handleCrateUnlock(title, subtitle, player);
+    }
 }

@@ -128,4 +128,14 @@ public class SendMessage {
             }
         }
     }
+
+    public void sendCrate(UUID uuid) throws IOException {
+        ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(responseStream);
+        out.writeUTF(uuid.toString());
+
+        for (ServerInfo info : BungeeCord.getInstance().getServers().values()) {
+            info.sendData("crate-received", responseStream.toByteArray());
+        }
+    }
 }

@@ -90,4 +90,10 @@ public class TitleManager {
         title.send(player);
         title.reset();
     }
+
+    public void handleCrateUnlock(String title, String subtitle, ProxiedPlayer player) {
+        Title t = TitleCreator.createCrateTitle(title, subtitle);
+        t.send(player);
+        t.reset();
+    }
 }

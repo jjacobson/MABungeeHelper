@@ -43,3 +43,9 @@ alerts:
   ability:
     title: '&b%ability%'
     subtitle: '&ePowerup Activated'
+  finalwave:
+    title: '&cFinal Wave'
+    subtitle: '&aBeat this wave to win the game!'
+  gamewon:
+    title: '&aGame Won'
+    subtitle: '&aCongrats to the survivors!'

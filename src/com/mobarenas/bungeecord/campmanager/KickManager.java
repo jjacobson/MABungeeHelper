@@ -19,7 +19,7 @@ public class KickManager {
      */
     public void addCamper(ProxiedPlayer player) {
         if (!campers.contains(player))
-            campers.remove(player);
+            campers.add(player);
     }
 
     /**

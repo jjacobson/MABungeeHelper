@@ -144,6 +144,8 @@ public class BungeeHelper extends Plugin {
         this.getProxy().registerChannel("party-login-update");
         this.getProxy().registerChannel("timer-alerts");
         this.getProxy().registerChannel("ability-activate");
+        this.getProxy().registerChannel("final-wave");
+        this.getProxy().registerChannel("game-won");
     }
 
     /**

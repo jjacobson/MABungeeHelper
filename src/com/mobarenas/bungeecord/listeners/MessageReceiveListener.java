@@ -59,6 +59,13 @@ public class MessageReceiveListener implements Listener {
             case "ability-activate":
                 BungeeHelper.getMessageReceiver().receiveAbilityAlert(event);
                 break;
+            case "final-wave":
+                BungeeHelper.getMessageReceiver().receiveFinalWaveAlert(event);
+                break;
+            case "game-won":
+                BungeeHelper.getMessageReceiver().receiveGameWonAlert(event);
+                break;
+
         }
     }
 }

@@ -145,4 +145,34 @@ public class TitleCreator {
         timerTitle.fadeOut(10);
         return timerTitle;
     }
+
+    public static Title createFinalWaveTitle() {
+        Title timerTitle = ProxyServer.getInstance().createTitle();
+
+        BaseComponent[] title = Messages.getMessage("alerts.finalwave.title");
+        BaseComponent[] subtitle = Messages.getMessage("alerts.finalwave.subtitle");
+
+        timerTitle.title(title);
+        timerTitle.subTitle(subtitle);
+
+        timerTitle.fadeIn(10);
+        timerTitle.stay(40);
+        timerTitle.fadeOut(10);
+        return timerTitle;
+    }
+
+    public static Title createGameWonTitle() {
+        Title timerTitle = ProxyServer.getInstance().createTitle();
+
+        BaseComponent[] title = Messages.getMessage("alerts.gamewon.title");
+        BaseComponent[] subtitle = Messages.getMessage("alerts.gamewon.subtitle");
+
+        timerTitle.title(title);
+        timerTitle.subTitle(subtitle);
+
+        timerTitle.fadeIn(10);
+        timerTitle.stay(40);
+        timerTitle.fadeOut(10);
+        return timerTitle;
+    }
 }

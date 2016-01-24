@@ -295,4 +295,30 @@ public class ReceiveMessage {
                 BungeeHelper.getTitleManager().handleAbilityAlert(ability, player);
         }
     }
+
+    public void receiveFinalWaveAlert(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+        String[] response = in.readUTF().split(";");
+        for (String id : response) {
+            UUID uuid = UUID.fromString(id);
+            ProxiedPlayer player = BungeeCord.getInstance().getPlayer(uuid);
+            if (player != null) {
+                BungeeHelper.getTitleManager().handleFinalWaveAlert(player);
+            }
+        }
+    }
+
+    public void receiveGameWonAlert(PluginMessageEvent event) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(event.getData());
+        DataInputStream in = new DataInputStream(stream);
+        String[] response = in.readUTF().split(";");
+        for (String id : response) {
+            UUID uuid = UUID.fromString(id);
+            ProxiedPlayer player = BungeeCord.getInstance().getPlayer(uuid);
+            if (player != null) {
+                BungeeHelper.getTitleManager().handleGameWonAlert(player);
+            }
+        }
+    }
 }

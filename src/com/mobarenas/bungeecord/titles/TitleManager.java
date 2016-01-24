@@ -78,4 +78,16 @@ public class TitleManager {
         title.send(player);
         title.reset();
     }
+
+    public void handleFinalWaveAlert(ProxiedPlayer player) {
+        Title title = TitleCreator.createFinalWaveTitle();
+        title.send(player);
+        title.reset();
+    }
+
+    public void handleGameWonAlert(ProxiedPlayer player) {
+        Title title = TitleCreator.createGameWonTitle();
+        title.send(player);
+        title.reset();
+    }
 }
